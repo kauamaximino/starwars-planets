@@ -3,7 +3,6 @@ const fetchPlanets = async () => {
     'https://swapi-trybe.herokuapp.com/api/planets/',
   );
   const data = await response.json();
-  console.log(data);
   return data;
 };
 

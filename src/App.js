@@ -1,11 +1,12 @@
-import React from "react";
-import PlanetsProvider from "./context/PlanetsProvider";
+import React from 'react';
+import PlanetsProvider from './context/PlanetsProvider';
+import Table from './components/Table';
 
 function App() {
   return (
     <PlanetsProvider>
       <span>Hello, App!</span>
-      <p>teste</p>
+      <Table />
     </PlanetsProvider>
   );
 }

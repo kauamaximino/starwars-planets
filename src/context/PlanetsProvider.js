@@ -1,20 +1,25 @@
-import React, { useState } from "react";
-import PlanetsContext from "./planetsContext";
-import fetchPlanets from "../services/planetsAPI";
+import React, { useEffect, useState } from 'react';
+import propTypes from 'prop-types';
+import PlanetsContext from './planetsContext';
+import fetchPlanets from '../services/planetsAPI';
 
 function PlanetsProvider({ children }) {
-  const [planets, setPlanets] = useState({});
+  const [data, setData] = useState([]);
 
-  const planetsFromApi = async () => {
-    const response = await fetchPlanets();
-    console.log(response);
-  };
+  useEffect(() => {
+    const result = fetchPlanets();
+    setData(result.resutls);
+  }, []);
 
   return (
-    <PlanetsContext.Provider value={planets}>
-      {children}
+    <PlanetsContext.Provider value={ data }>
+      { children }
     </PlanetsContext.Provider>
   );
 }
+
+PlanetsProvider.propTypes = {
+  children: propTypes.props,
+}.isRequired;
 
 export default PlanetsProvider;
