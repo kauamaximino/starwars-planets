@@ -13,8 +13,18 @@ const Table = () => {
   });
   const [activeFilters, setActiveFilters] = useState([]);
 
+  const initialOptions = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
+  const [options, setOptions] = useState(initialOptions);
+
   useEffect(() => {
-    setSelected({ ...selected, column: columnRef.current.value });
+    setSelected((prev) => ({ ...prev, column: columnRef.current.value }));
   }, []);
 
   useEffect(() => {
@@ -64,11 +74,11 @@ const Table = () => {
         value={ selected.column }
         onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {options.map((option) => (
+          <option key={ option } value={ option }>
+            {option}
+          </option>
+        ))}
       </select>
 
       <select
@@ -98,6 +108,10 @@ const Table = () => {
             comparison: 'maior que',
             value: 0,
           });
+          console.log(columnRef.current.value);
+          setOptions(
+            options.filter((option) => option !== columnRef.current.value),
+          );
         } }
       >
         Filtrar
