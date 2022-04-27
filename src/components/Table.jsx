@@ -28,10 +28,18 @@ const Table = () => {
   }, []);
 
   useEffect(() => {
+    setSelected({
+      column: columnRef.current.value,
+      comparison: 'maior que',
+      value: 0,
+    });
+  }, [activeFilters]);
+
+  useEffect(() => {
     const planetFilter = data.filter((planet) => planet.name.toLowerCase()
       .includes(planetName.toLowerCase()));
     setFilterData(planetFilter);
-  }, [data, planetName, setFilterData, activeFilters]);
+  }, [data, planetName, setFilterData]);
 
   const handleFilter = (planet) => {
     const bools = [];
@@ -102,20 +110,43 @@ const Table = () => {
         type="button"
         data-testid="button-filter"
         onClick={ () => {
-          setActiveFilters([...activeFilters, selected]);
-          setSelected({
-            column: columnRef.current.value,
-            comparison: 'maior que',
-            value: 0,
-          });
-          console.log(columnRef.current.value);
           setOptions(
             options.filter((option) => option !== columnRef.current.value),
           );
+          setActiveFilters([...activeFilters, selected]);
         } }
       >
         Filtrar
       </button>
+
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ () => {
+          setActiveFilters([]);
+          setOptions(initialOptions);
+        } }
+      >
+        Remover todas filtragens
+      </button>
+
+      {activeFilters.map((filter, index) => (
+        <div key={ index } data-testid="filter">
+          {filter.column}
+          {filter.comparison}
+          {filter.value}
+
+          <button
+            type="button"
+            onClick={ () => {
+              setActiveFilters(activeFilters.filter((e) => e !== filter));
+              setOptions([...options, filter.column]);
+            } }
+          >
+            X
+          </button>
+        </div>
+      ))}
 
       <table>
         <thead>
