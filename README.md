@@ -5,8 +5,7 @@
 
 ## 📰 Sobre o projeto
 
-Uma aplicação em React que usa Context API para gerenciar estado. React Hooks utilizadas ao longo do desenvolvimento: useState, useContext, useEffect e hooks customizadas
-
+Uma aplicação em React que usa Context API para gerenciar estado. React Hooks utilizadas ao longo do desenvolvimento: useState, useContext, useEffect e hooks customizadas.
 
 A página web consome os dados da **[API de Star Wars](https://swapi-trybe.herokuapp.com/api/planets/)**.
 
